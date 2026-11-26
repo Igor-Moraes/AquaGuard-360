@@ -37,6 +37,18 @@ button{cursor:pointer}
   flex-direction:column;
   overflow-y:auto;
 }
+.sidebar{
+  scrollbar-color:#23634e var(--sidebar);
+  scrollbar-width:thin;
+}
+.sidebar::-webkit-scrollbar{width:8px}
+.sidebar::-webkit-scrollbar-track{background:var(--sidebar)}
+.sidebar::-webkit-scrollbar-thumb{
+  background:#23634e;
+  border:2px solid var(--sidebar);
+  border-radius:8px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover{background:var(--green)}
 .brand{
   display:flex;align-items:center;gap:11px;
   padding:3px 8px 26px;
