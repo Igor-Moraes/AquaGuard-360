@@ -6,3 +6,4 @@ export { PondCard } from "./PondCard";
 export { PondModal } from "./PondModal";
 export { default as ProfileGrid } from "./ProfileGrid";
 export { SectionTitle } from "./SectionTitle";
+export { Sidebar } from "./Sidebar";

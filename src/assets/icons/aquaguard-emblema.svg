@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="AquaGuard-360">
+  <defs>
+    <linearGradient id="ag-ring" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#42bce7"/><stop offset="1" stop-color="#43d6a1"/></linearGradient>
+    <linearGradient id="ag-drop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fe0f8"/><stop offset=".55" stop-color="#42bce7"/><stop offset="1" stop-color="#1f86c9"/></linearGradient>
+    <linearGradient id="ag-leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#43d6a1"/><stop offset="1" stop-color="#1f9d73"/></linearGradient>
+    <clipPath id="ag-clip"><path d="M256 96 C256 96 148 214 148 296 A108 108 0 0 0 364 296 C364 214 256 96 256 96 Z"/></clipPath>
+  </defs>
+  <circle cx="256" cy="256" r="232" fill="none" stroke="url(#ag-ring)" stroke-width="16" stroke-linecap="round" stroke-dasharray="1290 168" transform="rotate(-9 256 256)"/>
+  <circle cx="414" cy="86" r="13" fill="none" stroke="#43d6a1" stroke-width="7"/>
+  <g transform="translate(256 250) scale(1.26) translate(-256 -250)">
+  <path d="M350 188 C394 194 420 226 416 272 C376 270 350 240 350 188 Z" fill="url(#ag-leaf)"/>
+  <path d="M358 200 C382 224 400 248 410 268" fill="none" stroke="#08131c" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+  <path d="M256 96 C256 96 148 214 148 296 A108 108 0 0 0 364 296 C364 214 256 96 256 96 Z" fill="url(#ag-drop)"/>
+  <g clip-path="url(#ag-clip)">
+    <path d="M120 322 C170 296 210 350 256 326 C302 302 340 346 392 318 V430 H120 Z" fill="#1470b5"/>
+    <path d="M120 354 C170 332 215 378 262 356 C308 334 345 374 392 350 V430 H120 Z" fill="#0d4f8f"/>
+  </g>
+  <g clip-path="url(#ag-clip)" fill="none" stroke="#f4fcff" stroke-opacity=".9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M190 252 V234 L210 214 V196"/><circle cx="210" cy="187" r="6.5"/>
+    <path d="M206 258 V250 L222 234 H228"/><circle cx="236" cy="234" r="6.5"/>
+  </g>
+  <g transform="translate(8 14)">
+    <path d="M192 282 L160 256 Q172 282 160 308 Z" fill="#f4fcff"/>
+    <path d="M190 282 C208 252 252 240 292 252 C312 258 326 270 334 282 C326 294 312 306 292 312 C252 324 208 312 190 282 Z" fill="#f4fcff"/>
+    <path d="M234 254 L250 230 Q268 234 280 252 Z" fill="#f4fcff"/>
+    <path d="M286 262 Q278 282 286 302" fill="none" stroke="#42bce7" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="308" cy="274" r="5" fill="#0d4f8f"/>
+  </g>
+  </g>
+</svg>

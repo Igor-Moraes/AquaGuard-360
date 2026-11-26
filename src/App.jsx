@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAquaData, useToast } from "./hooks";
-import { PondModal } from "./components";
+import { PondModal, Sidebar } from "./components";
 import * as P from "./pages";
 
 // [id, ícone, rótulo do menu, título da página, subtítulo, componente]
@@ -32,6 +32,7 @@ export default function App() {
   const d = useAquaData(toast);
   const [page, setPage] = useState("overview");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
   const go = (id) => {
@@ -47,38 +48,54 @@ export default function App() {
   const [, , , title, subtitle, View] = PAGES[page];
 
   return (
-    <div className="layout">
-      <aside className={"sidebar" + (menuOpen ? " open" : "")}>
-        <div className="brand">
-          <div className="brand-mark">A</div>
-          <div>
-            <div className="brand-name">AQUAGUARD 360</div>
-            <div className="brand-sub">ENTERPRISE INTELLIGENCE</div>
-          </div>
-        </div>
-        <nav className="nav">
-          {GROUPS.map(([label, items]) => (
-            <div className="nav-group" key={label}>
-              <div className="nav-label">{label}</div>
-              {items.map(([id, icon, text]) => (
-                <button key={id} className={page === id ? "active" : ""} onClick={() => go(id)}>
-                  <span className="nav-icon">{icon}</span>{text}
-                </button>
-              ))}
-            </div>
-          ))}
-        </nav>
-        <div className="sidebar-footer">
-          <span className="connection">● Ambiente demonstrativo ativo</span><br />
-          AquaGuard 360 · Enterprise v2.0<br />
-          Dados salvos neste navegador
-        </div>
-      </aside>
+    <div className={"layout" + (sidebarCollapsed ? " sidebar-collapsed" : "")}>
+      {menuOpen && (
+        <button
+          className="sidebar-backdrop"
+          type="button"
+          onClick={() => setMenuOpen(false)}
+          aria-label="Fechar menu"
+        />
+      )}
+      <Sidebar
+        groups={GROUPS}
+        page={page}
+        menuOpen={menuOpen}
+        collapsed={sidebarCollapsed}
+        onNavigate={go}
+        onClose={() => setMenuOpen(false)}
+      />
 
       <main className="main">
         <header className="topbar">
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <button className="btn mobile-menu" onClick={() => setMenuOpen((o) => !o)} aria-label="Abrir menu">☰</button>
+            <button
+              className="sidebar-collapse-toggle"
+              type="button"
+              onClick={() => setSidebarCollapsed((collapsed) => !collapsed)}
+              aria-label={sidebarCollapsed ? "Expandir menu lateral" : "Minimizar menu lateral"}
+              aria-expanded={!sidebarCollapsed}
+              aria-controls="primary-sidebar-nav"
+              data-tooltip={sidebarCollapsed ? "Expandir menu lateral" : "Minimizar menu lateral"}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+                <rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="currentColor" strokeWidth="1.7" />
+                <path d="M9 5v14" stroke="currentColor" strokeWidth="1.7" />
+                <rect x="5.5" y="8" width="1.5" height="8" rx=".7" fill="currentColor" />
+              </svg>
+            </button>
+            <button
+              className="mobile-menu"
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={menuOpen}
+              aria-controls="primary-sidebar-nav"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
             <div className="page-heading">
               <h1>{title}</h1>
               <p>{subtitle}</p>

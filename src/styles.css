@@ -19,7 +19,10 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   font-size:14px;
 }
 button,input,select,textarea{font:inherit}
@@ -37,6 +40,7 @@ button{cursor:pointer}
   flex-direction:column;
   overflow-y:auto;
 }
+.sidebar-close,.sidebar-backdrop{display:none}
 .sidebar{
   scrollbar-color:#23634e var(--sidebar);
   scrollbar-width:thin;
@@ -51,13 +55,11 @@ button{cursor:pointer}
 .sidebar::-webkit-scrollbar-thumb:hover{background:var(--green)}
 .brand{
   display:flex;align-items:center;gap:11px;
-  padding:3px 8px 26px;
+  padding:3px 8px 15px;
 }
 .brand-mark{
-  height:43px;width:43px;border-radius:12px;
-  background:linear-gradient(135deg,#087c73,#43d6a1);
-  display:grid;place-items:center;
-  color:#05251d;font-size:24px;font-weight:900;
+  display:block;height:50px;width:50px;flex:0 0 43px;
+  object-fit:contain;
 }
 .brand-name{font-weight:800;letter-spacing:.7px}
 .brand-sub{
@@ -71,18 +73,28 @@ button{cursor:pointer}
 }
 .nav button{
   width:100%;border:0;background:transparent;
-  color:#a7bec5;text-align:left;
-  border-radius:9px;padding:11px 12px;
+  color:var(--text);text-align:left;
+  border-radius:9px;padding:6px 10px;
   margin:2px 0;font-size:12px;
-  transition:.2s;display:flex;align-items:center;gap:11px;
+  transition:background .2s,color .2s;display:flex;align-items:center;gap:10px;
 }
 .nav button:hover,.nav button.active{
-  background:#183643;color:#fff;
+  background:#183643;color:var(--green);
 }
 .nav button.active{
   box-shadow:inset 3px 0 var(--green);
 }
-.nav-icon{width:18px;text-align:center;font-size:15px}
+.nav-icon{
+  width:30px;height:30px;flex:0 0 30px;
+  display:grid;place-items:center;
+  color:var(--cyan);font-size:21px;line-height:1;
+  text-shadow:0 0 10px rgba(66,188,231,.25);
+  transition:color .2s,text-shadow .2s;
+}
+.nav button:hover .nav-icon,.nav button.active .nav-icon{
+  color:var(--green);text-shadow:0 0 9px rgba(67,214,161,.35);
+}
+.nav-text{min-width:0;color:inherit;font-weight:550}
 .sidebar-footer{
   margin-top:auto;border-top:1px solid var(--border);
   padding:16px 8px 3px;color:var(--muted);
@@ -115,7 +127,44 @@ button{cursor:pointer}
   background:#234958;display:grid;place-items:center;
   color:#d7f5e9;font-weight:bold;
 }
-.mobile-menu{display:none}
+.sidebar-collapse-toggle{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;flex:0 0 34px;padding:7px;
+  border:0;background:transparent;color:var(--muted);
+}
+.sidebar-collapse-toggle:hover{color:var(--text)}
+.sidebar-collapse-toggle svg{display:block;width:18px;height:18px}
+.sidebar-collapse-toggle::after{
+  content:attr(data-tooltip);position:absolute;left:0;top:calc(100% + 8px);
+  z-index:100;padding:7px 10px;border:1px solid var(--border);
+  border-radius:8px;background:var(--surface2);color:var(--text);
+  box-shadow:0 6px 20px #0008;font-size:11px;font-weight:500;
+  line-height:1.4;white-space:nowrap;pointer-events:none;
+  opacity:0;visibility:hidden;transform:translateY(-3px);
+  transition:opacity .15s,transform .15s,visibility .15s;
+}
+.sidebar-collapse-toggle:hover::after,
+.sidebar-collapse-toggle:focus-visible::after{
+  opacity:1;visibility:visible;transform:translateY(0);
+}
+.sidebar-tooltip{
+  position:fixed;z-index:100;transform:translateY(-50%);
+  padding:7px 10px;border:1px solid var(--border);border-radius:8px;
+  background:var(--surface2);color:var(--text);box-shadow:0 6px 20px #0008;
+  font-size:11px;font-weight:500;line-height:1.4;white-space:nowrap;
+  pointer-events:none;
+}
+.mobile-menu{
+  display:none;align-items:center;justify-content:center;
+  width:34px;height:34px;flex:0 0 34px;padding:6px;
+  border:0;background:transparent;color:var(--muted);
+}
+.mobile-menu:hover{color:var(--text)}
+.mobile-menu svg,.sidebar-close svg{
+  display:block;width:21px;height:21px;fill:none;stroke:currentColor;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
 .page{display:none;padding-top:22px}
 .page.active{display:block}
 .eyebrow{
@@ -284,10 +333,21 @@ td{color:#d4e2e5}
   .two{grid-template-columns:1fr}
 }
 @media(max-width:700px){
-  .sidebar{display:none;width:250px;box-shadow:10px 0 30px #0008}
+  .sidebar{display:none;width:250px;padding-top:58px;box-shadow:10px 0 30px #0008}
   .sidebar.open{display:flex}
+  .sidebar-backdrop{
+    display:block;position:fixed;inset:0;z-index:15;
+    border:0;padding:0;background:#0009;
+  }
+  .sidebar-close{
+    display:flex;align-items:center;justify-content:center;
+    position:absolute;top:12px;right:13px;
+    width:34px;height:34px;flex:0 0 34px;margin:0;
+    border:0;background:transparent;color:var(--muted);
+  }
+  .sidebar-close:hover{color:var(--text)}
   .main{margin-left:0;padding:0 14px 35px}
-  .mobile-menu{display:inline-block}
+  .mobile-menu{display:inline-flex}
   .topbar{padding:13px 0}
   .top-right{gap:6px}
   .top-right select{max-width:125px}
@@ -308,4 +368,19 @@ button:focus-visible,input:focus-visible,select:focus-visible,.pond-card:focus-v
 .modal-bg{position:fixed;inset:0;background:#000a;display:grid;place-items:center;z-index:60;padding:16px}
 .modal{width:min(680px,100%);max-height:90vh;overflow:auto}
 .modal .form-grid{margin-top:4px}
-@media(max-width:700px){.modal .form-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:701px){
+  .layout.sidebar-collapsed .main{margin-left:76px}
+  .sidebar.collapsed{width:76px;padding:23px 10px}
+  .sidebar.collapsed .brand{justify-content:center;padding:3px 0 15px}
+  .sidebar.collapsed .brand-copy,
+  .sidebar.collapsed .nav-label,
+  .sidebar.collapsed .nav-text,
+  .sidebar.collapsed .sidebar-footer{display:none}
+  .sidebar.collapsed .nav button{justify-content:center;padding:11px 8px}
+  .sidebar.collapsed .nav-icon{width:auto}
+}
+@media(max-width:700px){
+  .layout.sidebar-collapsed .main{margin-left:0}
+  .sidebar-collapse-toggle{display:none}
+  .modal .form-grid{grid-template-columns:1fr 1fr}
+}
